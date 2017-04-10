@@ -797,6 +797,15 @@ int getnet( unsigned char* capa, int filter, int force)
     else
         bssid = opt.r_bssid;
 
+    if(getenv("FORCECN") != NULL)
+    {
+      int i = atoi(getenv("FORCECN"));
+      if(i > 0)
+      {
+        printf("FORCECN detected, overriding channel with %d. This may damage hardware.\n",i);
+        wi_set_channel(_wi_out,i);
+      }
+    }
 
     if( memcmp(bssid, NULL_MAC, 6) )
     {
